@@ -1,9 +1,8 @@
 import { Router } from "express";
-
 const chatController = Router()
 
-chatController.get('/', (req, res) => {
-    res.send('WOkrs')
+chatController.get('/', async (req, res) => {
+    res.send('works')
 })
 
 export default chatController;
