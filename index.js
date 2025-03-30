@@ -1,8 +1,20 @@
 import express from 'express'
 import 'dotenv/config'
 import router from './src/routes.js'
+import mongoose from 'mongoose'
 
 const app = express()
+
+try{
+    await mongoose.connect(process.env.MONGODB_CLUSTER_URI) 
+    console.log('Succssesfuly connected!');
+    
+} catch(err){
+    console.log('Cannot connect to DB :(!');
+    
+    console.log(err.message);
+    
+}
 
 app.use(router)
 
