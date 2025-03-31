@@ -8,12 +8,13 @@ async function createToken({id, username, email}){
         username,
         email,
     }
-    let token = null;
 
-    await jwt.sign(payload, process.env.SECRET,{ expiresIn: '1h' }, function(err, generatedToken){
-        token = generatedToken;
-        
-    } )
+    const token = await new Promise((resolve, reject) => {
+        jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' }, (err, token) => {
+            if (err) reject(err);
+            else resolve(token);
+        });
+    });
 
     return token;
 }
@@ -21,5 +22,8 @@ async function createToken({id, username, email}){
 export default{
     async getAll(){
         return await User.find() 
+    },
+    async create(userData){
+        return await createToken(userData)
     }
 }
