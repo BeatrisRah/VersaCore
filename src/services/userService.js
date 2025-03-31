@@ -21,15 +21,15 @@ async function createToken({id, username, email}){
 }
 
 function checkAuthData(userData, rePassword = false){
-    if(!userData.email || !userData.username || !userData.password){
-        throw new Error('Uncorrent data!')
-    }
-
     if(rePassword){
-        if(!userData.rePass || userData.rePass !== userData.password){
+        if(!userData.rePass || userData.rePass !== userData.password || !userData.username){
             throw new Error('Passwords dont match!')
         }
     }
+    if(!userData.email || !userData.password){
+        throw new Error('Uncorrent data!')
+    }
+
 }
 
 export default{
@@ -58,5 +58,29 @@ export default{
 
         }
 
+    },
+    async login(userData){
+        try{
+            checkAuthData(userData)
+            const user = await User.findOne({email: userData.email})
+
+            if(!user) throw new Error('Email or password incorrect!')
+            
+            const isValid = await bcrypt.compare(userData.password, user.password)
+
+            if(!isValid) throw new Error('Email or password incorrect!')
+    
+            const token = await createToken(user)
+
+            return{ 
+                succses:true,
+                username: user.username, 
+                email:user.email, 
+                id:user.id,
+                token}
+
+        } catch(err){
+            return {succses: false, error:err.message}
+        }
     }
 }

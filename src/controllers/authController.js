@@ -21,8 +21,21 @@ authRouter.post('/register', checkEmptyData, async (req, res) => {
     res.status(201).json({username,email, id, token})
 })
 
-authRouter.post('/login', (req, res) => {
+authRouter.post('/login', async (req, res) => {
+    const userDetails = req.body;
+
+    const {
+        token,
+        username, 
+        email, 
+        id, 
+        succses, error} = await userService.login(userDetails);
     
+    if(!succses){
+        return res.status(400).json({error})
+    }
+
+    res.status(200).json({username,email, id, token})
 })
 
 export default authRouter;
