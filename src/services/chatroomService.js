@@ -7,9 +7,11 @@ export default{
     },
 
     async create(chatroomData, ownerID){
-        await Chatroom.create({
-            ...chatroomData,
-            owner: ownerID
-        })
+        console.log(chatroomData);
+        
+        // await Chatroom.create({
+        //     ...chatroomData,
+        //     owner: ownerID
+        // })
     }
 }

@@ -1,7 +1,12 @@
-function checkData(data){
-    for(key in data){
+export function checkData(data){
+    if(Object.keys(data).length === 0){
+        return true
+    }
+    for(const key in data){
         if(data[key].trim() === ''){
-            throw new Error('Not all inputs filled!')
+            return true
         }
     }
+    return null
 }
+
