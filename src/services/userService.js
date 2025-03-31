@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js"
+import bcrypt from 'bcrypt'
 
 async function createToken({id, username, email}){
 
@@ -19,15 +20,22 @@ async function createToken({id, username, email}){
     return token;
 }
 
+
 export default{
     async getAll(){
         return await User.find() 
     },
     async create(userData){
-        //TODO HASH PASSWORD
+        //** Happy paht (userData is as expexted) */
         try{
-            const user = await User.create(userData)
+            const hashPAss = await bcrypt.hash(userData.password, parseInt(process.env.SALT))
+
+            const user = await User.create({
+                ...userData,
+                password:hashPAss
+            })
             const token = await createToken(user)
+            
             return {succses: true, user, token}
         } catch(err){
             return {succses: false, error:err.message}
