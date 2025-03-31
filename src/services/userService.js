@@ -24,6 +24,15 @@ export default{
         return await User.find() 
     },
     async create(userData){
-        return await createToken(userData)
+        //TODO HASH PASSWORD
+        try{
+            const user = await User.create(userData)
+            const token = await createToken(user)
+            return {succses: true, user, token}
+        } catch(err){
+            return {succses: false, error:err.message}
+
+        }
+
     }
 }
