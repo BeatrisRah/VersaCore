@@ -1,6 +1,6 @@
 import { Router } from "express";
 import chatroomService from "../services/chatroomService.js";
-import { checkData } from "../utils/dataUtils.js";
+import { checkEmptyData } from "../middlewares/checkDataMiddleware.js";
 const chatController = Router()
 
 chatController.get('/', async (req, res) => {
@@ -8,13 +8,10 @@ chatController.get('/', async (req, res) => {
     res.send(allChats)
 })
 
-chatController.post('/', async (req, res) => {
+chatController.post('/', checkEmptyData,  async (req, res) => {
     const chatromData = req.body;
-    
-    const emptyData = checkData(chatromData)
-    if(emptyData) {
-        return res.status(400).json({error:"Data is required and cannot be empty!"})
-    }
+
+    // await chatroomService.create(chatromData, 'user')
     res.end()
 })
 
