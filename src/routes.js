@@ -3,6 +3,6 @@ import chatController from "./controllers/chatController.js";
 
 const router = Router()
 
-router.use('/api/chats', chatController)
+router.use('/api/chatrooms', chatController)
 
 export default router
