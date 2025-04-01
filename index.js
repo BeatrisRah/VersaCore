@@ -3,8 +3,10 @@ import 'dotenv/config'
 import router from './src/routes.js'
 import mongoose from 'mongoose'
 import 'dotenv/config'
+import cors from "cors";
 
 const app = express()
+
 
 try{
     await mongoose.connect(process.env.MONGODB_CLUSTER_URI)
@@ -16,8 +18,13 @@ try{
     console.log(err.message);
     
 }
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(",")
+    : ["http://localhost:3000"];
 
+    
 app.use(express.json())
+app.use(cors({ origin: allowedOrigins }));
 app.use(router)
 
 const port = process.env.PORT || 3030
