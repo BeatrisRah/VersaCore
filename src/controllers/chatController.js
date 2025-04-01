@@ -1,6 +1,7 @@
 import { Router } from "express";
 import chatroomService from "../services/chatroomService.js";
 import { checkEmptyData } from "../middlewares/checkDataMiddleware.js";
+import { isAuth } from "../middlewares/authMiddleware.js";
 const chatController = Router()
 
 chatController.get('/', async (req, res) => {
@@ -8,10 +9,11 @@ chatController.get('/', async (req, res) => {
     res.send(allChats)
 })
 
-chatController.post('/', checkEmptyData,  async (req, res) => {
+chatController.post('/', isAuth,  checkEmptyData,  async (req, res) => {
     const chatromData = req.body;
+    const user = req.user
 
-    // await chatroomService.create(chatromData, 'user')
+    await chatroomService.create(chatromData, user.id)
     res.end()
 })
 
