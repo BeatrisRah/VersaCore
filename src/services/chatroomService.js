@@ -7,11 +7,14 @@ export default{
     },
 
     async create(chatroomData, ownerID){
-        console.log(chatroomData);
         
-        // await Chatroom.create({
-        //     ...chatroomData,
-        //     owner: ownerID
-        // })
+        return await Chatroom.create({
+            ...chatroomData,
+            owner: ownerID
+        })
+    },
+
+    async getOne(chatroomId){
+        return await Chatroom.findById(chatroomId)
     }
 }

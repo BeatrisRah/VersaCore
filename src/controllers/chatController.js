@@ -13,8 +13,23 @@ chatController.post('/', isAuth,  checkEmptyData,  async (req, res) => {
     const chatromData = req.body;
     const user = req.user
 
-    await chatroomService.create(chatromData, user.id)
-    res.end()
+    try{
+        const chatroom = await chatroomService.create(chatromData, user.id)
+        res.json(chatroom)
+    } catch(err){
+        res.status(400).json({error:err.message})
+
+    }
+})
+
+chatController.get('/:chatroomId' , async (req, res) => {
+    const chatroomId = req.params.chatroomId;
+    try{
+        const chatroom = await chatroomService.getOne(chatroomId)
+        res.json(chatroom)
+    } catch(err){
+        res.status(404).json({error:'No content found'})
+    }
 })
 
 export default chatController;
