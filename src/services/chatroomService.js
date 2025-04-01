@@ -16,5 +16,9 @@ export default{
 
     async getOne(chatroomId){
         return await Chatroom.findById(chatroomId)
-    }
+    },
+
+    async joinChatRoom(chatroomID, userID){
+        await Chatroom.findByIdAndUpdate(chatroomID, {$push: {members: userID}})
+    },
 }
