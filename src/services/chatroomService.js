@@ -21,4 +21,13 @@ export default{
     async joinChatRoom(chatroomID, userID){
         await Chatroom.findByIdAndUpdate(chatroomID, {$push: {members: userID}})
     },
+
+    async getUserRooms(userId){
+        return await Chatroom.find({
+        $or: [
+            { owner: userId },
+            { members: userId }
+        ]
+        });
+    }
 }
