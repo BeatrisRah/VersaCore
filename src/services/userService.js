@@ -27,7 +27,7 @@ function checkAuthData(userData, rePassword = false){
         }
     }
     if(!userData.email || !userData.password){
-        throw new Error('Uncorrent data!')
+        throw new Error('Incorrent data!')
     }
 
 }

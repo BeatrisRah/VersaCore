@@ -7,6 +7,7 @@ export default{
     },
 
     async create(chatroomData, ownerID){
+        // TODO: Validate data
         
         return await Chatroom.create({
             ...chatroomData,
@@ -23,11 +24,18 @@ export default{
     },
 
     async getUserRooms(userId){
-        return await Chatroom.find({
+        const res =  await Chatroom.find({
         $or: [
             { owner: userId },
             { members: userId }
         ]
         });
+        const joinedRooms =  res.filter(room => room.owner.toString() !== userId)
+        const ownedRooms = res.filter(room => room.owner.toString() === userId)
+        
+
+        return {
+            joinedRooms, ownedRooms
+        }
     }
 }

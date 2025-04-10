@@ -24,7 +24,7 @@ authRouter.post('/register', checkEmptyData, async (req, res) => {
     res.status(201).json({username,email, id, token})
 })
 
-authRouter.post('/login', async (req, res) => {
+authRouter.post('/login', checkEmptyData,  async (req, res) => {
     const userDetails = req.body;
 
     const {
