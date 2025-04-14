@@ -32,4 +32,17 @@ chatController.get('/:chatroomId' , async (req, res) => {
     }
 })
 
+chatController.post('/:chatroomId/join', isAuth, async (req, res) => {
+    const user = req.user
+    const chatroomId = req.params.chatroomId;
+
+
+    try{
+        await chatroomService.joinChatRoom(chatroomId, user.id)
+        res.sendStatus(200)
+    } catch(err){
+        res.status(401).json({error:err.message})
+    }
+})
+
 export default chatController;

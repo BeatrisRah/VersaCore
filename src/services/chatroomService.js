@@ -23,6 +23,18 @@ export default{
     },
 
     async joinChatRoom(chatroomID, userID){
+        const chatroom = await Chatroom.findById(chatroomID);
+
+        const isOwner = chatroom.owner.toString() === userID;
+        const isAlreadyMember = chatroom.members.some(
+            member => member.toString() === userID
+        );
+    
+        if (isOwner || isAlreadyMember) {
+            throw new Error('Already in chat!') 
+        }
+    
+
         await Chatroom.findByIdAndUpdate(chatroomID, {$push: {members: userID}})
     },
 
