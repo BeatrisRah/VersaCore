@@ -50,8 +50,6 @@ authRouter.get('/:userId/chatrooms', async (req, res) => {
 
     try{
         const rooms = await chatroomService.getUserRooms(userId)
-        // TODO: Send An object as {
-        // joinedRooms:[], ownedRooms:[] }
         res.json(rooms)
         
     } catch(err){

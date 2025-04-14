@@ -1,4 +1,5 @@
 import Chatroom from "../models/Chatroom.js";
+import { checkData } from "../utils/dataUtils.js";
 
 
 export default{
@@ -7,7 +8,9 @@ export default{
     },
 
     async create(chatroomData, ownerID){
-        // TODO: Validate data
+        const isInvalid = checkData(chatroomData)
+
+        if(isInvalid) throw new Error('Please fill all inputs!')
         
         return await Chatroom.create({
             ...chatroomData,
