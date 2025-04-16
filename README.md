@@ -73,7 +73,84 @@ Express server for running multiple projects.
 
 >### Chatrooms
 
+### Get All Chats
+`GET /api/chatrooms`
 
+**Response:**  
+Array containing objects of chatrooms
+
+```json
+[
+    {...chatroom details}
+]
+
+```
+
+
+----
+### Create a Chatroom
+[This is an auth request!!](#authorization)
+
+`POST /api/chatrooms`
+**Request Body:**
+
+```json
+{
+  "title": "Chatroom1",
+  "description": "Some desc",
+  "imageURL": "Image URL"
+}
+
+```
+
+**Response:**
+
+```json
+{
+  "id": "DB generated ID",
+  "title": "Chatroom1",
+  "description": "Some desc",
+  "imageURL": "Image URL",
+  "visibility": "Image URL",
+  "owner": "User's Id",
+  "members": "Empty array",
+  "messages": "Empty array",
+  "createdAt":"Time stamp"
+
+}
+
+```
+---
+### Getting One Chatroom
+
+`GET /api/chatrooms/:chatroomId`
+
+**Response:**
+
+```json
+{
+  "id": "DB generated ID",
+  "title": "Chatroom1",
+  "description": "Some desc",
+  "imageURL": "Image URL",
+  "visibility": "Image URL",
+  "owner": "User's Id",
+  "members": "Array of Users",
+  "messages": "Array of Messages",
+  "createdAt":"Time stamp"
+
+}
+```
+
+
+---
+
+### Joining a Chatroom
+[This is an auth request!!](#authorization)
+
+`GET /api/chatrooms/:chatroomId/join`
+
+**Response:** None
 
 ## Authorization
 
