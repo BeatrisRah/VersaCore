@@ -5,6 +5,7 @@ Express server for running multiple projects.
 |---
 | [Usage](#usage)
 | [Authorization](#authorization)
+| [Chat Socket](#chat-socket)
 | [Collections](#collections)
 | - [Users](#users)
 | - [Chatrooms](#chatrooms)
@@ -166,6 +167,21 @@ _TODO: Only set user can get their chatrooms._
 `GET /api/chatrooms/:chatroomId/join`
 
 **Response:** None
+
+## Chat Socket
+### Real time chatting with socket.io
+
+__URL__: `/chatrooms`
+
+
+
+| **Event** | Name              | Params (?)                | Desc                                    |
+|-----------|-------------------|---------------------------|-----------------------------------------|
+| **On**    | `join_room`       | `roomId`                  | TODO: Client joins room                 |
+|           | `send_message`    | `roomId, sender, message` | TODO: Client sends message              |
+| **Emit**  | `receive_message` | `chat`                    | TODO: Broadcast to everyone in the room |
+|           |                   |                           |                                         |
+
 
 ## Authorization
 
