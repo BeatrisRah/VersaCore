@@ -85,7 +85,22 @@ Array containing objects of chatrooms
 ]
 
 ```
+----
 
+### Get Users Chatrooms
+`GET /api/users/:userId/chatrooms`  
+_TODO: Only set user can get their chatrooms._
+
+**Response:**
+
+```json
+{
+  "joinedRooms": [{Objects of User's joined rooms}],
+  "ownedRooms": [{Objects of User's owned rooms}]
+
+}
+
+```
 
 ----
 ### Create a Chatroom

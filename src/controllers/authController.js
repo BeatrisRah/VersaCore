@@ -47,7 +47,7 @@ authRouter.get('/:userId', (req, res) => {
 
 authRouter.get('/:userId/chatrooms', async (req, res) => {
     const userId = req.params.userId;
-
+    // !! TODO: Only set user can req for their chatrooms
     try{
         const rooms = await chatroomService.getUserRooms(userId)
         res.json(rooms)
