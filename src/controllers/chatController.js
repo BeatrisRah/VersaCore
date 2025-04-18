@@ -44,14 +44,5 @@ chatController.get('/:chatroomId/join', isAuth, async (req, res) => {
     }
 })
 
-chatController.get('/:chatroomId/messages', async(req, res) => {
-    const chatroomId = req.params.chatroomId;
-    try{
-        const chatroom = await chatroomService.getOne(chatroomId)        
-        res.json(chatroom.messages)
-    } catch(err){
-        res.status(404).json({error:'No content found'})
-    }
-})
 
 export default chatController;
