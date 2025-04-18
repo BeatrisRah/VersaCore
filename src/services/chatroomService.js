@@ -19,7 +19,7 @@ export default{
     },
 
     async getOne(chatroomId){
-        return await Chatroom.findById(chatroomId)
+        return await Chatroom.findById(chatroomId).populate('messages').populate('members')
     },
 
     async joinChatRoom(chatroomID, userID){
@@ -53,5 +53,9 @@ export default{
             joinedRooms, ownedRooms
         }
     },
+
+    async saveMessage(chatroomId, message){
+        await Chatroom.findByIdAndUpdate(chatroomId, { $push: {messages: message}})
+    }
 
 }
