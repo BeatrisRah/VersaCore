@@ -25,8 +25,9 @@ chatController.post('/', isAuth,  checkEmptyData,  async (req, res) => {
 chatController.get('/:chatroomId' , async (req, res) => {
     const chatroomId = req.params.chatroomId;
     try{
-        const chatroom = await chatroomService.getOne(chatroomId)
-        res.json(chatroom)
+        const [chatroom, messages] = await chatroomService.getOne(chatroomId)
+        
+        res.json({chatroom, messages})
     } catch(err){
         res.status(404).json({error:'No content found'})
     }

@@ -1,4 +1,5 @@
 import Chatroom from "../models/Chatroom.js";
+import Message from "../models/Message.js";
 import { checkData } from "../utils/dataUtils.js";
 
 
@@ -19,7 +20,14 @@ export default{
     },
 
     async getOne(chatroomId){
-        return await Chatroom.findById(chatroomId).populate('messages').populate('members')
+        const chatroom = await Chatroom.findById(chatroomId).populate('members', 'username _id');
+        const messeges = await Message.find({chatroom: chatroomId})
+        .populate('sender', 'username _id')
+        .sort({timestamp: 1})
+        .lean()
+
+
+        return [chatroom, messeges]
     },
 
     async joinChatRoom(chatroomID, userID){

@@ -145,15 +145,33 @@ _TODO: Only set user can get their chatrooms._
 
 ```json
 {
-  "id": "DB generated ID",
-  "title": "Chatroom1",
-  "description": "Some desc",
-  "imageURL": "Image URL",
-  "visibility": "Image URL",
-  "owner": "User's Id",
-  "members": "Array of Users",
-  "messages": "Array of Messages",
-  "createdAt":"Time stamp"
+  "chatroom":{
+    "_id": "...",
+      "title": "...",
+      "description": "...",
+      "owner": "...",
+      "members": [
+          {
+              "_id": "...",
+              "username": "...",
+              "__v": 0
+          }
+      ],
+      "messages":[
+        "..."
+      ]
+  },
+  "messages":[
+    {
+      "_id": "...",
+      "chatroom": "...",
+      "sender": {
+          "_id": "...",
+          "username": "...",
+          "__v": 0
+          }
+    }
+  ]
 
 }
 ```
