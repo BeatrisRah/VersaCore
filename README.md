@@ -195,9 +195,9 @@ __URL__: `/chatrooms`
 
 | **Event** | Name              | Params (?)                | Desc                                    |
 |-----------|-------------------|---------------------------|-----------------------------------------|
-| **On**    | `join_room`       | `roomId`                  | TODO: Client joins room                 |
+| **On**    | `join_room`       | `roomId`                  | Client joins room                 |
 |           | `send_message`    | `chatroom, sender, content` | Client sends a message to server      |
-| **Emit**  | `receive_message` | `chat`                    | TODO: Broadcast to everyone in the room |
+| **Emit**  | `receive_message` | `chat`                    | Broadcast to everyone in the room |
 |           |                   |                           |                                         |
 
 
