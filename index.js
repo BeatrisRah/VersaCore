@@ -7,6 +7,7 @@ import cors from "cors";
 import http from 'http'
 import { Server } from 'socket.io'
 import chatNamespace from './src/sockets/chatNamespace.js'
+import { logginInfoMiddleware } from './src/middlewares/logginInfoMiddleware.js'
 
 const app = express()
 const server = http.createServer(app)
@@ -34,6 +35,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
     
 app.use(express.json())
 app.use(cors({ origin: allowedOrigins }));
+app.use(logginInfoMiddleware)
 app.use(router)
 
 chatNamespace(io)

@@ -21,6 +21,7 @@ export default function(io){
                 })
 
                 await chatroomService.saveMessage(chatData.chatroom, chat)
+                await chat.populate('sender');
                 chatNameSpace.to(chatData.chatroom).emit('recive_message', chat)
             } catch(err){
                 console.log(err.message);
