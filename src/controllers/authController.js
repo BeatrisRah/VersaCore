@@ -2,6 +2,7 @@ import { Router } from "express";
 import userService from "../services/userService.js";
 import { checkEmptyData } from "../middlewares/checkDataMiddleware.js";
 import chatroomService from "../services/chatroomService.js";
+import { isAuth } from "../middlewares/authMiddleware.js";
 
 const authRouter = Router()
 
@@ -45,14 +46,16 @@ authRouter.get('/:userId', (req, res) => {
 // implenent
 })
 
-authRouter.get('/:userId/chatrooms', async (req, res) => {
+authRouter.get('/:userId/chatrooms', isAuth, async (req, res) => {
     const userId = req.params.userId;
     // !! TODO: Only set user can req for their chatrooms
     try{
+        if(req.user.id !== userId) throw new Error('Unauthorized request!')
         const rooms = await chatroomService.getUserRooms(userId)
         res.json(rooms)
         
     } catch(err){
+        res.status(401).json({error: err.message})
         console.log(err.message);
         
     }

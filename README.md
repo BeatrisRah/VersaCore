@@ -92,6 +92,8 @@ Array containing objects of chatrooms
 `GET /api/users/:userId/chatrooms`  
 _TODO: Only set user can get their chatrooms._
 
+[This is an auth request!!](#authorization)
+
 **Response:**
 
 ```json
