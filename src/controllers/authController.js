@@ -3,12 +3,13 @@ import userService from "../services/userService.js";
 import { checkEmptyData } from "../middlewares/checkDataMiddleware.js";
 import chatroomService from "../services/chatroomService.js";
 import { isAuth } from "../middlewares/authMiddleware.js";
+import { authLimiter, generalLimiter } from "../middlewares/rateLimitMiddleware.js";
 
 const authRouter = Router()
 
 
 
-authRouter.post('/register', checkEmptyData, async (req, res) => {
+authRouter.post('/register', authLimiter, checkEmptyData, async (req, res) => {
     const userDetails = req.body;
 
     const {
@@ -25,7 +26,7 @@ authRouter.post('/register', checkEmptyData, async (req, res) => {
     res.status(201).json({username,email, id, token})
 })
 
-authRouter.post('/login', checkEmptyData,  async (req, res) => {
+authRouter.post('/login', authLimiter, checkEmptyData,  async (req, res) => {
     const userDetails = req.body;
 
     const {
@@ -46,7 +47,7 @@ authRouter.get('/:userId', (req, res) => {
 // implenent
 })
 
-authRouter.get('/:userId/chatrooms', isAuth, async (req, res) => {
+authRouter.get('/:userId/chatrooms', generalLimiter, isAuth, async (req, res) => {
     const userId = req.params.userId;
     // !! TODO: Only set user can req for their chatrooms
     try{
