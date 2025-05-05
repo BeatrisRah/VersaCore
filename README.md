@@ -151,6 +151,7 @@ _TODO: Only set user can get their chatrooms._
     "_id": "...",
       "title": "...",
       "description": "...",
+      "imageURL": "...",
       "owner": "...",
       "members": [
           {
